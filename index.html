@@ -795,6 +795,8 @@ footer .wrap{display:grid;grid-template-columns:1fr auto;gap:12px 30px}
         rx:quiet ? 0 : rnd(-160,160), ry:quiet ? 0 : rnd(-160,160), rz:rnd(-20,20), hz:rnd(-120,80), hr:rnd(-14,14), ph:rnd(0,6.28), drag:false};
       c.hx = c.x; c.hy = c.y;
       el.addEventListener('pointerdown', e => grab(c, e));
+      // iOS Safari: не даём странице прокручиваться, пока палец тянет карточку
+      el.addEventListener('touchstart', e => { if (mode !== 'order') e.preventDefault(); }, {passive:false});
       cards.set(t.id, c);
     }
     function toggle(t, quiet){
@@ -855,26 +857,37 @@ footer .wrap{display:grid;grid-template-columns:1fr auto;gap:12px 30px}
       setTimeout(() => $('#f-name').focus({preventScroll:true}), 700);
     });
 
+    // Карточки в 3D: на экране точка (x, y, z) видна в (x, y)·P/(P − z).
+    // Палец и карточку сопоставляем в экранных координатах, иначе карточка уезжает из-под пальца.
+    const P = 1000, LIFT = 60;
+    const scr = c => P/(P - c.z);
     let dragC = null;
     function grab(c, e){
-      if (mode === 'order') return;
-      dragC = c; c.drag = true; c.el.setPointerCapture(e.pointerId);
-      const r = area.getBoundingClientRect();
-      c.offx = e.clientX - r.left - r.width/2 - c.x; c.offy = e.clientY - r.top - r.height/2 - c.y;
-      c.vz = 40;
+      if (mode === 'order' || dragC) return;
+      e.preventDefault();
+      dragC = c; c.drag = true;
+      try { c.el.setPointerCapture(e.pointerId); } catch(_){}
+      const r = area.getBoundingClientRect(), k = scr(c);
+      c.offx = e.clientX - r.left - r.width/2 - c.x*k; c.offy = e.clientY - r.top - r.height/2 - c.y*k;
+      c.z = LIFT; c.vz = 0;
+      const k2 = scr(c);
+      c.x = (e.clientX - r.left - r.width/2 - c.offx)/k2; c.y = (e.clientY - r.top - r.height/2 - c.offy)/k2;
+      c.vx = c.vy = 0;
     }
     addEventListener('pointermove', e => {
       if (!dragC) return;
-      const r = area.getBoundingClientRect(), c = dragC;
-      const nx = e.clientX - r.left - r.width/2 - c.offx, ny = e.clientY - r.top - r.height/2 - c.offy;
+      const r = area.getBoundingClientRect(), c = dragC, k = scr(c);
+      const nx = (e.clientX - r.left - r.width/2 - c.offx)/k, ny = (e.clientY - r.top - r.height/2 - c.offy)/k;
       c.vx = nx - c.x; c.vy = ny - c.y; c.x = nx; c.y = ny;
     });
-    addEventListener('pointerup', () => {
+    function drop(){
       if (!dragC) return;
       const c = dragC, W = area.clientWidth, H = area.clientHeight;
       c.drag = false; dragC = null;
-      c.hx = clamp(c.x + c.vx*10, -W/2 + 80, W/2 - 80); c.hy = clamp(c.y + c.vy*10, -H/2 + 60, H/2 - 60);
-    });
+      c.hx = clamp(c.x + c.vx*8, -W/2 + 80, W/2 - 80); c.hy = clamp(c.y + c.vy*8, -H/2 + 60, H/2 - 60);
+    }
+    addEventListener('pointerup', drop);
+    addEventListener('pointercancel', drop);
     function frame(t){
       if (!visible.has(area)) return;
       cards.forEach(c => {
@@ -886,8 +899,10 @@ footer .wrap{display:grid;grid-template-columns:1fr auto;gap:12px 30px}
           c.vx = (c.vx + (tx - c.x)*k)*.84; c.vy = (c.vy + (ty - c.y)*k)*.84;
           c.x += c.vx; c.y += c.vy;
         }
-        c.vz = (c.vz + (tz + (c.drag ? 120 : 0) - c.z)*.06)*.82; c.z += c.vz;
-        c.rx = lerp(c.rx, clamp(-c.vy*2.2, -50, 50), .12); c.ry = lerp(c.ry, clamp(c.vx*2.2, -50, 50), .12); c.rz = lerp(c.rz, trz, .08);
+        if (c.drag){ c.z = LIFT; c.vz = 0; }
+        else { c.vz = (c.vz + (tz - c.z)*.06)*.82; c.z += c.vz; }
+        const tilt = c.drag ? 18 : 50;
+        c.rx = lerp(c.rx, clamp(-c.vy*2.2, -tilt, tilt), .12); c.ry = lerp(c.ry, clamp(c.vx*2.2, -tilt, tilt), .12); c.rz = lerp(c.rz, c.drag ? 0 : trz, .08);
         c.el.style.transform = `translate3d(${c.x.toFixed(1)}px,${c.y.toFixed(1)}px,${c.z.toFixed(1)}px) rotateX(${c.rx.toFixed(1)}deg) rotateY(${c.ry.toFixed(1)}deg) rotateZ(${c.rz.toFixed(1)}deg)`;
         c.el.style.zIndex = c.drag ? 50 : Math.round(c.z + 2000);
       });
