@@ -188,7 +188,7 @@ h2.title{font-family:var(--f-head);font-weight:700;font-size:clamp(28px,3.6vw,46
 .fab-list .ph{background:var(--brand-deep-2)}
 
 /* ---------- РЕФЕРАЛЬНАЯ ПРОГРАММА ---------- */
-.ref{background:var(--paper);color:var(--text-light);padding:90px 0}
+.ref{background:var(--paper);color:var(--text-light);padding:0 0 90px}
 .ref-card{display:grid;grid-template-columns:1fr 1.1fr;gap:40px;align-items:center;background:#fff;border-radius:28px;padding:44px;box-shadow:0 30px 60px -40px rgba(10,26,58,.4)}
 .ref-sum{font:800 clamp(44px,6vw,80px)/1 var(--f-head);letter-spacing:-.03em;color:var(--brand)}
 .ref h2{font:700 clamp(24px,3vw,36px)/1.15 var(--f-head);letter-spacing:-.02em;margin-top:10px;text-wrap:balance}
@@ -273,6 +273,8 @@ section.block.cta{padding-top:70px}
 .form .agree{display:flex;gap:10px;align-items:flex-start;font-size:12px;color:var(--muted-dark);margin:4px 0 22px;font-weight:500}
 .form .agree input{margin-top:2px;accent-color:var(--brand)}
 .form .agree a{color:var(--brand-2)}
+.form .agree.err span{color:var(--alert)}
+.faq-cta{margin-top:28px}
 .form .btn{width:100%;padding:18px}
 .form .done{display:none;text-align:center;padding:30px 0}
 .form .done b{font-family:var(--f-head);font-size:22px;display:block;margin-bottom:8px}
@@ -416,54 +418,13 @@ footer .wrap{display:grid;grid-template-columns:1fr auto;gap:12px 30px}
   </div>
 </section>
 
-<!-- ============ ВАЖНО ЗНАТЬ ============ -->
-<section class="block light" style="padding-top:0">
-  <div class="wrap">
-    <div class="eyebrow reveal">Важно знать заранее</div>
-    <h2 class="title reveal">Что сохраняется у гражданина в процедуре</h2>
-    <div class="keep">
-      <div class="keep-card reveal">
-        <div class="ic"><svg viewBox="0 0 24 24"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg></div>
-        <h3>Единственное жильё</h3>
-        <p>По общему правилу единственное жильё не включается в конкурсную массу. Исключение — жильё в залоге, например по ипотеке.</p>
-      </div>
-      <div class="keep-card reveal">
-        <div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18"/><path d="M7 15h4"/></svg></div>
-        <h3>Средства на жизнь</h3>
-        <p>Из дохода ежемесячно исключается сумма в размере прожиточного минимума на гражданина и иждивенцев.</p>
-      </div>
-      <div class="keep-card reveal">
-        <div class="ic"><svg viewBox="0 0 24 24"><path d="M4 7h16v12H4z"/><path d="M9 7V5h6v2"/><path d="M4 12h16"/></svg></div>
-        <h3>Работа и личные вещи</h3>
-        <p>Процедура не запрещает работать по найму. Предметы обычной домашней обстановки и обихода не реализуются.</p>
-      </div>
-    </div>
-    <p class="note reveal">Результат процедуры зависит от обстоятельств конкретного дела и решения суда.</p>
-  </div>
-</section>
-
-<!-- ============ ВОПРОСЫ ============ -->
-<section class="block light" style="padding-top:0">
-  <div class="wrap">
-    <div class="eyebrow reveal">Частые вопросы</div>
-    <h2 class="title reveal">Отвечаем на то, о чём спрашивают чаще всего</h2>
-    <div class="faq reveal">
-      <details><summary>Сколько стоит сопровождение?</summary><p>Стоимость зависит от сложности дела: количества кредиторов, имущества, сделок за последние годы. Отдельно оплачиваются госпошлина и вознаграждение финансового управляющего. Точный расчёт — после консультации, оплату можно разбить на части.</p></details>
-      <details><summary>Сколько длится процедура?</summary><p>Срок зависит от суда, наличия имущества и позиции кредиторов. Ориентировочные сроки по вашей ситуации назовём на консультации.</p></details>
-      <details><summary>Как строится общение с кредиторами во время процедуры?</summary><p>После введения процедуры требования кредиторов рассматриваются в рамках дела о банкротстве, взаимодействие идёт через арбитражный суд и финансового управляющего.</p></details>
-      <details><summary>Какие последствия у банкротства?</summary><p>В течение пяти лет нужно сообщать о банкротстве при обращении за кредитом и нельзя повторно подать заявление о банкротстве. Есть ограничения на занятие руководящих должностей в организациях. Подробно разберём на консультации.</p></details>
-      <details><summary>Есть ли альтернативы?</summary><p>Да. Возможна реструктуризация, договорённость с кредитором, а при соответствии условиям — внесудебное банкротство через МФЦ. Рекомендуем до обращения к нам связаться со своим кредитором и МФЦ.</p></details>
-    </div>
-  </div>
-</section>
-
 <!-- ============ ОТЗЫВЫ ============
      Только фрагменты о работе юристов: упоминать списание долгов и суммы в рекламе нельзя (ст. 28.1 ФЗ «О рекламе»).
      Рейтинг и число отзывов сверены с карточками 22.10.2026: Яндекс 5,0 и 702 отзыва, 2ГИС 5,0 и 395 отзывов. -->
 <section class="block light" id="reviews" style="padding-top:0">
   <div class="wrap">
     <div class="eyebrow reveal">Отзывы</div>
-    <h2 class="title reveal">Что клиенты говорят о нашей работе</h2>
+    <h2 class="title reveal">Отзывы о работе наших юристов</h2>
     <div class="rv">
       <aside class="rv-sum reveal">
         <b>5,0</b>
@@ -485,6 +446,32 @@ footer .wrap{display:grid;grid-template-columns:1fr auto;gap:12px 30px}
       </div>
     </div>
     <p class="note reveal">Фрагменты отзывов клиентов, опубликованных на Яндекс Картах и 2ГИС.</p>
+  </div>
+</section>
+
+<!-- ============ ВАЖНО ЗНАТЬ ============ -->
+<section class="block light" style="padding-top:0">
+  <div class="wrap">
+    <div class="eyebrow reveal">Важно знать заранее</div>
+    <h2 class="title reveal">Что остаётся у вас во время процедуры</h2>
+    <div class="keep">
+      <div class="keep-card reveal">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg></div>
+        <h3>Единственное жильё</h3>
+        <p>По общему правилу единственное жильё не включается в конкурсную массу. Исключение — жильё в залоге, например по ипотеке.</p>
+      </div>
+      <div class="keep-card reveal">
+        <div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18"/><path d="M7 15h4"/></svg></div>
+        <h3>Средства на жизнь</h3>
+        <p>Из дохода ежемесячно исключается сумма в размере прожиточного минимума на гражданина и иждивенцев.</p>
+      </div>
+      <div class="keep-card reveal">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M4 7h16v12H4z"/><path d="M9 7V5h6v2"/><path d="M4 12h16"/></svg></div>
+        <h3>Работа и личные вещи</h3>
+        <p>Процедура не запрещает работать по найму. Предметы обычной домашней обстановки и обихода не реализуются.</p>
+      </div>
+    </div>
+    <p class="note reveal">Результат процедуры зависит от обстоятельств конкретного дела и решения суда.</p>
   </div>
 </section>
 
@@ -553,11 +540,27 @@ footer .wrap{display:grid;grid-template-columns:1fr auto;gap:12px 30px}
           <option selected>500 000 – 1 000 000 ₽</option>
           <option>более 1 000 000 ₽</option>
         </select>
-        <label class="agree"><input type="checkbox" id="f-agree" checked> <span>Согласен на обработку персональных данных в соответствии с <a href="https://cityarbitr.ru/policy/" target="_blank" rel="noopener">политикой конфиденциальности</a></span></label>
+        <label class="agree"><input type="checkbox" id="f-agree"> <span>Согласен на обработку персональных данных в соответствии с <a href="https://cityarbitr.ru/policy/" target="_blank" rel="noopener">политикой конфиденциальности</a></span></label>
         <button class="btn btn-brand" type="submit">Получить консультацию</button>
       </div>
       <div class="done"><b>Заявка принята</b>Юрист свяжется с вами в ближайшее время.</div>
     </form>
+  </div>
+</section>
+
+<!-- ============ ВОПРОСЫ ============ -->
+<section class="block light" id="faq">
+  <div class="wrap">
+    <div class="eyebrow reveal">Остались вопросы?</div>
+    <h2 class="title reveal">Частые вопросы</h2>
+    <div class="faq reveal">
+      <details><summary>Сколько стоит сопровождение?</summary><p>Стоимость зависит от сложности дела: количества кредиторов, имущества, сделок за последние годы. Отдельно оплачиваются госпошлина и вознаграждение финансового управляющего. Точный расчёт — после консультации, оплату можно разбить на части.</p></details>
+      <details><summary>Сколько длится процедура?</summary><p>Срок зависит от суда, наличия имущества и позиции кредиторов. Ориентировочные сроки по вашей ситуации назовём на консультации.</p></details>
+      <details><summary>Как строится общение с кредиторами во время процедуры?</summary><p>После введения процедуры требования кредиторов рассматриваются в рамках дела о банкротстве, взаимодействие идёт через арбитражный суд и финансового управляющего.</p></details>
+      <details><summary>Какие последствия у банкротства?</summary><p>В течение пяти лет нужно сообщать о банкротстве при обращении за кредитом и нельзя повторно подать заявление о банкротстве. Есть ограничения на занятие руководящих должностей в организациях. Подробно разберём на консультации.</p></details>
+      <details><summary>Есть ли альтернативы?</summary><p>Да. Возможна реструктуризация, договорённость с кредитором, а при соответствии условиям — внесудебное банкротство через МФЦ. Рекомендуем до обращения к нам связаться со своим кредитором и МФЦ.</p></details>
+    </div>
+    <div class="faq-cta reveal"><a class="btn btn-brand" href="#form">Задать вопрос юристу</a></div>
   </div>
 </section>
 
@@ -933,7 +936,9 @@ footer .wrap{display:grid;grid-template-columns:1fr auto;gap:12px 30px}
     const name = form.name.value.trim(), phone = form.phone.value.replace(/\D/g,'');
     form.name.style.borderColor = name ? '' : 'var(--alert)';
     form.phone.style.borderColor = phone.length >= 10 ? '' : 'var(--alert)';
-    if (!name || phone.length < 10 || !document.getElementById('f-agree').checked) return;
+    const agree = document.getElementById('f-agree').checked;
+    form.querySelector('.agree').classList.toggle('err', !agree);
+    if (!name || phone.length < 10 || !agree) return;
     // здесь будет отправка в Битрикс24: fetch(WEBHOOK + "crm.lead.add.json", {method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({fields: buildLead()})})
     form.classList.add('sent');
   });
