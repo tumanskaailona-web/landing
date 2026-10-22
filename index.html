@@ -230,9 +230,10 @@ h2.title{font-family:var(--f-head);font-weight:700;font-size:clamp(28px,3.6vw,46
 .rg-left{font-size:14px;color:var(--muted-dark);margin-top:6px}
 .rg-left b{color:var(--text-dark);font-variant-numeric:tabular-nums}
 .rg-small{font-size:12.5px;color:var(--muted-dark)}
-.rg-area{position:relative;perspective:1000px;overflow:hidden;min-width:0;touch-action:pan-y}
-.rg-world{position:absolute;left:50%;top:50%;transform-style:preserve-3d}
+.rg-area{position:relative;isolation:isolate;overflow:hidden;min-width:0;touch-action:pan-y;transition:height .45s ease}
+.rg-world{position:absolute;left:50%;top:50%}
 .rg-card{position:absolute;left:0;top:0;width:180px;height:104px;margin:-52px 0 0 -90px;border-radius:14px;padding:12px 14px;background:linear-gradient(180deg,#fff,#eaf0f9);color:#1b2233;box-shadow:0 22px 44px -18px rgba(0,0,0,.85);display:grid;grid-template-columns:1fr auto;grid-template-rows:auto 1fr auto;cursor:grab;user-select:none;-webkit-user-select:none;touch-action:none;will-change:transform;transition:width .5s cubic-bezier(.2,.8,.2,1),height .5s cubic-bezier(.2,.8,.2,1),margin .5s cubic-bezier(.2,.8,.2,1),opacity .4s}
+.rg-card{-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent}
 .rg-card:active{cursor:grabbing}
 .rg-card .tag{font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#5d6780;grid-column:1}
 .rg-card .sum{font:700 19px var(--f-head);font-variant-numeric:tabular-nums;grid-column:1/-1;align-self:center}
@@ -243,12 +244,12 @@ h2.title{font-family:var(--f-head);font-weight:700;font-size:clamp(28px,3.6vw,46
 .rg-area.order .rg-card .sum{font-size:15px}
 .rg-area.order .rg-card .pay{color:#5d6780}
 .rg-area.order .rg-card .ok{grid-column:auto;opacity:1;transform:none;order:5}
-.rg-sum{position:absolute;left:50%;width:var(--rw);transform:translateX(-50%);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:12px 14px;border-top:2px solid var(--brand-2);font-weight:700;opacity:0;transition:opacity .4s .4s;font-variant-numeric:tabular-nums;pointer-events:none}
+.rg-sum{position:absolute;z-index:500;left:50%;width:var(--rw);transform:translateX(-50%);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:12px 14px;border-top:2px solid var(--brand-2);font-weight:700;opacity:0;transition:opacity .4s .4s;font-variant-numeric:tabular-nums;pointer-events:none}
 .rg-area.order .rg-sum{opacity:1}
-.rg-stamp{position:absolute;right:8%;top:14%;z-index:5;font:800 14px/1.15 var(--f-head);text-align:center;color:var(--brand-2);border:3px solid var(--brand-2);border-radius:10px;padding:8px 12px;background:rgba(8,20,46,.6);transform:rotate(-10deg) scale(3);opacity:0;pointer-events:none}
+.rg-stamp{position:absolute;right:16px;top:12px;z-index:500;font:800 13px/1.1 var(--f-head);text-align:center;color:var(--brand-2);border:3px solid var(--brand-2);border-radius:10px;padding:8px 12px;background:rgba(8,20,46,.6);transform:rotate(-10deg) scale(3);opacity:0;pointer-events:none}
 .rg-stamp.on{animation:slam .45s cubic-bezier(.3,1.6,.5,1) forwards}
 @keyframes slam{0%{opacity:0;transform:rotate(-10deg) scale(3)}60%{opacity:1}100%{opacity:1;transform:rotate(-10deg) scale(1)}}
-.rg-cta{position:absolute;left:0;right:0;bottom:22px;text-align:center;opacity:0;transform:translateY(12px);transition:opacity .4s .9s,transform .4s .9s;pointer-events:none;padding:0 16px}
+.rg-cta{position:absolute;left:0;right:0;bottom:22px;z-index:500;text-align:center;opacity:0;transform:translateY(12px);transition:opacity .4s .9s,transform .4s .9s;pointer-events:none;padding:0 16px}
 .rg-area.order .rg-cta{opacity:1;transform:none;pointer-events:auto}
 .rg-cta small{display:block;margin-top:8px;font-size:12.5px;color:var(--muted-dark)}
 .rg-hint{position:absolute;left:0;right:0;top:16px;text-align:center;font-size:13px;color:var(--muted-dark);transition:opacity .3s;pointer-events:none}
@@ -328,7 +329,7 @@ footer .wrap{display:grid;grid-template-columns:1fr auto;gap:12px 30px}
   .rg-area.order .rg-card .pay{display:none}
   .rg-area.order .rg-card .tag{font-size:9.5px}
   .rg-area.order .rg-card .sum{font-size:13px}
-  .rg-stamp{font-size:11px;right:4%;top:6%}
+  .rg-stamp{font-size:11px;right:12px;top:10px}
   .cta-grid{grid-template-columns:1fr;gap:36px}
   .nav-msg{display:none}
   .ref{padding:64px 0}
@@ -805,7 +806,19 @@ footer .wrap{display:grid;grid-template-columns:1fr auto;gap:12px 30px}
       t.row.querySelector('.rg-chip').setAttribute('aria-pressed', t.on);
       if (t.on){ if (mode === 'order') setMode('chaos'); makeCard(t, quiet); }
       else { const c = cards.get(t.id); if (c){ c.el.style.opacity = 0; setTimeout(() => c.el.remove(), 500); cards.delete(t.id); } }
+      spread();
       update();
+    }
+    // Раскладываем карточки свободной сеткой, чтобы они не лежали стопкой и каждую было легко схватить
+    function spread(){
+      const W = area.clientWidth || 600, H = area.clientHeight || 500, arr = [...cards.values()], n = arr.length;
+      if (!n) return;
+      const cols = Math.min(n, mobile() ? 2 : 3), rows = Math.ceil(n/cols), cw = (W - 40)/cols, ch = (H - 70)/rows;
+      arr.forEach((c, i) => {
+        const col = i % cols, row = Math.floor(i/cols), inRow = Math.min(cols, n - row*cols), shift = (cols - inRow)*cw/2;
+        c.hx = -W/2 + 20 + shift + cw*(col + .5) + rnd(-cw, cw)*.08;
+        c.hy = -H/2 + 50 + ch*(row + .5) + rnd(-ch, ch)*.06;
+      });
     }
     function update(){
       let total = 0, pay = 0;
@@ -838,14 +851,21 @@ footer .wrap{display:grid;grid-template-columns:1fr auto;gap:12px 30px}
       $('#rgOrder').textContent = m === 'order' ? 'Перемешать обратно' : 'Разложить по полочкам';
       const st = $('#rgStamp'); st.classList.remove('on');
       if (m === 'order'){ layoutOrder(); setTimeout(() => { if (mode === 'order'){ void st.offsetWidth; st.classList.add('on'); } }, 750); }
-      else cards.forEach(c => { c.vz -= 30; c.vx += rnd(-14,14); c.vy += rnd(-14,14); c.rx += rnd(-90,90); });
+      else { area.style.height = ''; const cta = area.querySelector('.rg-cta'); cta.style.top = ''; cta.style.bottom = ''; }
+      if (m !== 'order') cards.forEach(c => { c.vz -= 30; c.vx += rnd(-14,14); c.vy += rnd(-14,14); c.rx += rnd(-90,90); });
     }
+    // В режиме списка всё идёт сверху вниз: штамп, строки, итог, кнопка. Высота блока подстраивается под число строк.
     function layoutOrder(){
-      const W = area.clientWidth, H = area.clientHeight, rh = mobile() ? 46 : 52;
+      const W = area.clientWidth, rh = mobile() ? 46 : 52, sum = $('#rgSum'), cta = area.querySelector('.rg-cta');
       area.style.setProperty('--rw', Math.min(W - 32, 620) + 'px');
-      const arr = [...cards.values()], n = arr.length, top = -((n + 1)*rh)/2 - 20;
-      arr.forEach((c, i) => { c.ox = 0; c.oy = top + i*rh + rh/2; });
-      $('#rgSum').style.top = (H/2 + top + n*rh + 2) + 'px';
+      const arr = [...cards.values()], n = arr.length, top0 = mobile() ? 64 : 72;
+      const sumTop = top0 + n*rh + 4, ctaTop = sumTop + sum.offsetHeight + 18;
+      const prev = area.style.height; area.style.height = ''; const nat = area.clientHeight; area.style.height = prev;
+      const H = Math.max(nat, ctaTop + cta.offsetHeight + 24);
+      area.style.height = H + 'px';
+      arr.forEach((c, i) => { c.ox = 0; c.oy = top0 + i*rh + rh/2 - H/2; });
+      sum.style.top = sumTop + 'px';
+      cta.style.top = ctaTop + 'px'; cta.style.bottom = 'auto';
     }
     $('#rgOrder').addEventListener('click', () => {
       setMode(mode === 'order' ? 'chaos' : 'order');
@@ -857,29 +877,27 @@ footer .wrap{display:grid;grid-template-columns:1fr auto;gap:12px 30px}
       setTimeout(() => $('#f-name').focus({preventScroll:true}), 700);
     });
 
-    // Карточки в 3D: на экране точка (x, y, z) видна в (x, y)·P/(P − z).
-    // Палец и карточку сопоставляем в экранных координатах, иначе карточка уезжает из-под пальца.
-    const P = 1000, LIFT = 60;
-    const scr = c => P/(P - c.z);
-    let dragC = null;
+    // Глубина показывается масштабом, а сами карточки лежат в плоскости:
+    // так касание всегда попадает в ту карточку, которую видно, и она едет точно за пальцем (в том числе в Safari на iPhone).
+    const P = 1000, LIFT = 70;
+    let dragC = null, ptr = null;
     function grab(c, e){
       if (mode === 'order' || dragC) return;
       e.preventDefault();
-      dragC = c; c.drag = true;
+      dragC = c; c.drag = true; ptr = e.pointerId;
       try { c.el.setPointerCapture(e.pointerId); } catch(_){}
-      const r = area.getBoundingClientRect(), k = scr(c);
-      c.offx = e.clientX - r.left - r.width/2 - c.x*k; c.offy = e.clientY - r.top - r.height/2 - c.y*k;
-      c.z = LIFT; c.vz = 0;
-      const k2 = scr(c);
-      c.x = (e.clientX - r.left - r.width/2 - c.offx)/k2; c.y = (e.clientY - r.top - r.height/2 - c.offy)/k2;
+      const r = area.getBoundingClientRect();
+      c.offx = e.clientX - r.left - r.width/2 - c.x; c.offy = e.clientY - r.top - r.height/2 - c.y;
       c.vx = c.vy = 0;
     }
     addEventListener('pointermove', e => {
-      if (!dragC) return;
-      const r = area.getBoundingClientRect(), c = dragC, k = scr(c);
-      const nx = (e.clientX - r.left - r.width/2 - c.offx)/k, ny = (e.clientY - r.top - r.height/2 - c.offy)/k;
+      if (!dragC || e.pointerId !== ptr) return;
+      const r = area.getBoundingClientRect(), c = dragC;
+      const nx = e.clientX - r.left - r.width/2 - c.offx, ny = e.clientY - r.top - r.height/2 - c.offy;
       c.vx = nx - c.x; c.vy = ny - c.y; c.x = nx; c.y = ny;
-    });
+      // рисуем сразу, не дожидаясь следующего кадра
+      paint(c);
+    }, {passive:true});
     function drop(){
       if (!dragC) return;
       const c = dragC, W = area.clientWidth, H = area.clientHeight;
@@ -899,16 +917,21 @@ footer .wrap{display:grid;grid-template-columns:1fr auto;gap:12px 30px}
           c.vx = (c.vx + (tx - c.x)*k)*.84; c.vy = (c.vy + (ty - c.y)*k)*.84;
           c.x += c.vx; c.y += c.vy;
         }
-        if (c.drag){ c.z = LIFT; c.vz = 0; }
-        else { c.vz = (c.vz + (tz - c.z)*.06)*.82; c.z += c.vz; }
-        const tilt = c.drag ? 18 : 50;
-        c.rx = lerp(c.rx, clamp(-c.vy*2.2, -tilt, tilt), .12); c.ry = lerp(c.ry, clamp(c.vx*2.2, -tilt, tilt), .12); c.rz = lerp(c.rz, c.drag ? 0 : trz, .08);
-        c.el.style.transform = `translate3d(${c.x.toFixed(1)}px,${c.y.toFixed(1)}px,${c.z.toFixed(1)}px) rotateX(${c.rx.toFixed(1)}deg) rotateY(${c.ry.toFixed(1)}deg) rotateZ(${c.rz.toFixed(1)}deg)`;
-        c.el.style.zIndex = c.drag ? 50 : Math.round(c.z + 2000);
+        c.vz = (c.vz + ((c.drag ? LIFT : tz) - c.z)*.08)*.8; c.z += c.vz;
+        const tilt = c.drag ? 14 : 50;
+        c.rx = lerp(c.rx, clamp(-c.vy*2, -tilt, tilt), .12); c.ry = lerp(c.ry, clamp(c.vx*2, -tilt, tilt), .12); c.rz = lerp(c.rz, c.drag ? 0 : trz, .08);
+        paint(c);
       });
     }
+    function paint(c){
+      const s = P/(P - Math.min(c.z, 300));
+      c.el.style.transform = `translate3d(${c.x.toFixed(1)}px,${c.y.toFixed(1)}px,0) scale(${s.toFixed(3)}) perspective(700px) rotateX(${c.rx.toFixed(1)}deg) rotateY(${c.ry.toFixed(1)}deg) rotateZ(${c.rz.toFixed(1)}deg)`;
+      c.el.style.zIndex = c.drag ? 400 : Math.round(c.z/10 + 200);
+    }
     update();
-    return {frame, resize(){ if (mode === 'order') layoutOrder(); }};
+    // на телефоне resize приходит и при прокрутке (прячется адресная строка), поэтому перекладываем только при смене ширины
+    let lastW = area.clientWidth;
+    return {frame, resize(){ if (area.clientWidth === lastW) return; lastW = area.clientWidth; if (mode === 'order') layoutOrder(); else spread(); }};
   })();
 
   /* =========================================================
