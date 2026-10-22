@@ -149,6 +149,23 @@ h2.title{font-family:var(--f-head);font-weight:700;font-size:clamp(28px,3.6vw,46
 .warn-box{display:flex;gap:14px;align-items:flex-start;background:#fff7e0;border:1px solid #f0dfae;color:#3b2f0b;border-radius:14px;padding:18px 20px;font-weight:600;font-size:15px;line-height:1.4}
 .warn-box svg{flex:none;width:22px;height:22px;stroke:#b07d00;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;margin-top:1px}
 
+/* ---------- ОТЗЫВЫ ---------- */
+.rv{display:grid;grid-template-columns:300px minmax(0,1fr);gap:20px;margin-top:46px;align-items:start}
+.rv-sum{background:var(--brand-deep);color:var(--text-dark);border-radius:var(--radius);padding:28px;position:sticky;top:90px}
+.rv-sum b{display:block;font:800 64px/1 var(--f-head);letter-spacing:-.03em}
+.rv-stars{color:var(--amber);font-size:20px;letter-spacing:3px;margin-top:6px}
+.rv-sum p{color:var(--muted-dark);font-size:15px;margin-top:10px}
+.rv-sum ul{list-style:none;margin-top:16px;display:flex;flex-direction:column;gap:8px}
+.rv-sum li a{display:flex;justify-content:space-between;gap:10px;text-decoration:none;font-weight:600;font-size:14px;padding:10px 12px;border-radius:10px;border:1px solid var(--line)}
+.rv-sum li a:hover{border-color:var(--brand-2)}
+.rv-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.rv-card{background:#fff;border-radius:var(--radius);padding:24px;box-shadow:0 1px 0 rgba(0,0,0,.04),0 20px 40px -30px rgba(10,26,58,.35);display:flex;flex-direction:column;gap:14px}
+.rv-card q{font-size:18px;font-weight:600;line-height:1.4;quotes:"«" "»"}
+.rv-who{display:flex;align-items:center;gap:12px;margin-top:auto}
+.rv-av{width:40px;height:40px;border-radius:50%;background:var(--paper-2);color:var(--brand);display:grid;place-items:center;font-weight:700;flex:none}
+.rv-who b{display:block;font-size:15px}
+.rv-who span{font-size:13px;color:var(--muted-light)}
+
 /* ---------- ВАШ РЕЕСТР (калькулятор перед формой) ---------- */
 .calc{background:linear-gradient(180deg,var(--brand-deep-2),var(--brand-deep));color:var(--text-dark);padding:110px 0 40px}
 .calc h2.title{color:var(--text-dark)}
@@ -260,6 +277,10 @@ footer .warn-f{grid-column:1/-1;color:#fff;font-weight:600}
   .timeline::before{left:27px;right:auto;top:0;bottom:0;width:2px;height:auto;background:linear-gradient(180deg,var(--brand) var(--tl,0%),rgba(0,0,0,.1) var(--tl,0%))}
   .tl-item{padding:4px 0 0 76px;min-height:56px}
   .keep{grid-template-columns:1fr}
+  .rv{grid-template-columns:1fr}
+  .rv-sum{position:static}
+  .rv-grid{grid-template-columns:1fr}
+  .rv-card q{font-size:16px}
   .calc{padding-top:72px}
   .rg{grid-template-columns:1fr}
   .rg-side{border-right:0;border-bottom:1px solid var(--line);padding:18px}
@@ -393,6 +414,37 @@ footer .warn-f{grid-column:1/-1;color:#fff;font-weight:600}
       <details><summary>Какие последствия у банкротства?</summary><p>В течение пяти лет нужно сообщать о банкротстве при обращении за кредитом и нельзя повторно подать заявление о банкротстве. Есть ограничения на занятие руководящих должностей в организациях. Подробно разберём на консультации.</p></details>
       <details><summary>Есть ли альтернативы?</summary><p>Да. Возможна реструктуризация, договорённость с кредитором, а при соответствии условиям — внесудебное банкротство через МФЦ. Рекомендуем до обращения к нам связаться со своим кредитором и МФЦ.</p></details>
     </div>
+  </div>
+</section>
+
+<!-- ============ ОТЗЫВЫ ============
+     Только фрагменты о работе юристов: упоминать списание долгов и суммы в рекламе нельзя (ст. 28.1 ФЗ «О рекламе»).
+     Рейтинг и число отзывов перед публикацией сверить с карточками на площадках. -->
+<section class="block light" id="reviews" style="padding-top:0">
+  <div class="wrap">
+    <div class="eyebrow reveal">Отзывы</div>
+    <h2 class="title reveal">Что клиенты говорят о нашей работе</h2>
+    <div class="rv">
+      <aside class="rv-sum reveal">
+        <b>5,0</b>
+        <div class="rv-stars" aria-label="5 из 5">★★★★★</div>
+        <p>Более 790 отзывов на независимых площадках</p>
+        <ul>
+          <li><a href="https://yandex.ru/maps/org/sitiarbitr/221264911630/reviews/" target="_blank" rel="noopener">Яндекс Карты <span>→</span></a></li>
+          <li><a href="https://2gis.ru/moscow/firm/70000001037233999/tab/reviews" target="_blank" rel="noopener">2ГИС <span>→</span></a></li>
+          <li><a href="https://moscow.flamp.ru/firm/sitiarbitr_yuridicheskaya_kompaniya-70000001037233999#reviews" target="_blank" rel="noopener">Flamp <span>→</span></a></li>
+        </ul>
+      </aside>
+      <div class="rv-grid">
+        <figure class="rv-card reveal"><q>За Ваше понимание и доброжелательный подход к каждому человеку</q><figcaption class="rv-who"><span class="rv-av">А</span><div><b>Анастасия Л.</b><span>ноябрь 2022 · Яндекс Карты</span></div></figcaption></figure>
+        <figure class="rv-card reveal"><q>юристы всегда оставались на связи, отвечали на все мои вопросы.</q><figcaption class="rv-who"><span class="rv-av">Д</span><div><b>Дарья К.</b><span>июль 2022 · Flamp</span></div></figcaption></figure>
+        <figure class="rv-card reveal"><q>мне всё объяснили, что и как будет происходить</q><figcaption class="rv-who"><span class="rv-av">А</span><div><b>Анна</b><span>июнь 2022 · 2ГИС</span></div></figcaption></figure>
+        <figure class="rv-card reveal"><q>подробно все разъясняли и помогали</q><figcaption class="rv-who"><span class="rv-av">Л</span><div><b>Любовь А.</b><span>июнь 2022 · Flamp</span></div></figcaption></figure>
+        <figure class="rv-card reveal"><q>Информировали о ходе процедуры.</q><figcaption class="rv-who"><span class="rv-av">В</span><div><b>Виктория Р.</b><span>май 2022 · Яндекс Карты</span></div></figcaption></figure>
+        <figure class="rv-card reveal"><q>Здесь работают настоящие профессионалы своего дела.</q><figcaption class="rv-who"><span class="rv-av">М</span><div><b>Марина А.</b><span>январь 2022 · Flamp</span></div></figcaption></figure>
+      </div>
+    </div>
+    <p class="note reveal">Фрагменты отзывов клиентов, опубликованных на Яндекс Картах, 2ГИС и Flamp.</p>
   </div>
 </section>
 
