@@ -32,10 +32,11 @@
   --radius:18px;
   --f-head:'Unbounded',system-ui,sans-serif;
   --f-body:'Onest',system-ui,sans-serif;
+  --warn-h:max(9vh,64px);   /* полоса предупреждения: не меньше 7% экрана */
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{background:var(--brand-deep);color:var(--text-dark);font-family:var(--f-body);font-size:17px;line-height:1.55;overflow-x:hidden}
+body{background:var(--brand-deep);color:var(--text-dark);font-family:var(--f-body);font-size:17px;line-height:1.55;overflow-x:hidden;padding-bottom:var(--warn-h)}
 a{color:inherit}
 button{font:inherit;color:inherit;cursor:pointer}
 .wrap{max-width:1200px;margin:0 auto;padding:0 24px}
@@ -57,7 +58,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 .nav.light{background:rgba(243,246,251,.9);color:var(--text-light);border-color:rgba(0,0,0,.08)}
 
 /* ---------- HERO: телефон с уведомлениями ---------- */
-.hero{position:relative;min-height:100vh;min-height:100svh;display:flex;flex-direction:column;overflow:clip;background:
+.hero{position:relative;min-height:calc(100vh - var(--warn-h));min-height:calc(100svh - var(--warn-h));display:flex;flex-direction:column;overflow:clip;background:
   radial-gradient(1100px 700px at 72% 55%, rgba(79,141,255,.16), transparent 60%),
   radial-gradient(900px 600px at 5% 0%, rgba(31,95,214,.25), transparent 60%),
   linear-gradient(180deg,var(--brand-deep),var(--brand-deep-2))}
@@ -73,7 +74,7 @@ h1 em{font-style:normal;background:linear-gradient(90deg,var(--brand-2),#9cc0ff)
 .hero-say b{display:block;font-size:15px}
 .hero-say span{display:block;font-size:14px;color:var(--muted-dark);margin-top:2px}
 
-.ph-box{position:relative;height:min(700px,calc(100svh - 170px));min-height:620px}
+.ph-box{position:relative;height:min(700px,calc(100svh - 110px - var(--warn-h)));min-height:620px}
 .ph-box canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
 .phone{position:absolute;left:50%;top:calc((100% - 80px) / 2);width:270px;height:540px;margin:-270px 0 0 -135px;border-radius:42px;background:#05070d;padding:11px;box-shadow:0 0 0 2px #2a3550,0 40px 80px -30px rgba(0,0,0,.9),0 0 80px -10px var(--glow,rgba(226,83,63,0));transition:box-shadow .5s}
 .phone.buzz{animation:buzz .35s}
@@ -107,8 +108,9 @@ h1 em{font-style:normal;background:linear-gradient(90deg,var(--brand-2),#9cc0ff)
 .ph-ctl{position:absolute;left:0;right:0;bottom:0;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center}
 .ph-ctl small{font-size:12px;color:var(--muted-dark)}
 
-/* обязательное предупреждение (ст. 28.1 ФЗ «О рекламе») — прилипает к низу экрана, пока виден первый экран */
-.warn{position:sticky;bottom:0;z-index:8;display:flex;align-items:center;min-height:64px;padding:10px 0;background:rgba(5,14,34,.94);border-top:1px solid var(--line)}
+/* обязательное предупреждение (ст. 28.1 ФЗ «О рекламе»): закреплено внизу экрана на всей странице,
+   занимает не меньше 7% площади экрана (требование ч. 2 ст. 28.1 для «иных способов» распространения) */
+.warn{position:fixed;left:0;right:0;bottom:0;z-index:45;display:flex;align-items:center;height:var(--warn-h);padding-bottom:env(safe-area-inset-bottom,0px);background:rgba(5,14,34,.96);border-top:1px solid var(--line)}
 .warn .wrap{width:100%;display:flex;gap:14px;align-items:center}
 .warn svg{flex:none;width:22px;height:22px;stroke:var(--amber);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .warn p{font-size:14px;line-height:1.35;font-weight:600;color:#fff}
@@ -250,8 +252,8 @@ footer .warn-f{grid-column:1/-1;color:#fff;font-weight:600}
   .hero-say{display:none}
   .ph-box{height:560px;min-height:0}
   .phone{transform:scale(.8)}
-  .warn{min-height:0}
-  .warn p{font-size:11.5px}
+  :root{--warn-h:max(11vh,84px)}
+  .warn p{font-size:12px}
   .warn svg{width:18px;height:18px}
   section.block{padding:72px 0}
   .timeline{grid-template-columns:1fr;gap:30px}
@@ -322,7 +324,7 @@ footer .warn-f{grid-column:1/-1;color:#fff;font-weight:600}
           <div class="ph-chat">
             <div class="ph-pill">Ваше дело · этап 3 из 4</div>
             <div class="ph-msg"><b>Юрист СитиАрбитр</b>Здравствуйте! Все документы по вашему делу у нас.</div>
-            <div class="ph-msg"><b>Юрист СитиАрбитр</b>Заявление подано в арбитражный суд. Требования кредиторов теперь рассматриваются в деле.</div>
+            <div class="ph-msg"><b>Юрист СитиАрбитр</b>Заявление подано в арбитражный суд. После введения процедуры требования кредиторов рассматриваются в деле.</div>
             <div class="ph-msg"><b>Юрист СитиАрбитр</b>Следующий шаг: судебное заседание. Напомню заранее и всё объясню.</div>
             <div class="ph-typing" id="phTyping"><i></i><i></i><i></i></div>
           </div>
@@ -335,12 +337,6 @@ footer .warn-f{grid-column:1/-1;color:#fff;font-weight:600}
     </div>
   </div>
 
-  <div class="warn">
-    <div class="wrap">
-      <svg viewBox="0 0 24 24"><path d="M12 3 2 20h20L12 3z"/><path d="M12 10v4"/><path d="M12 17.5v.01"/></svg>
-      <p>Банкротство влечет негативные последствия, в том числе ограничения на получение кредита и повторное банкротство в течение пяти лет. Предварительно обратитесь к своему кредитору и в МФЦ.</p>
-    </div>
-  </div>
 </section>
 
 <!-- ============ КАК ПРОХОДИТ ============ -->
@@ -413,14 +409,14 @@ footer .warn-f{grid-column:1/-1;color:#fff;font-weight:600}
         <div class="rg-list" id="rgList"></div>
         <div class="rg-inc">
           <label for="rgInc">Ваш доход в месяц <b id="rgIncV"></b></label>
-          <input id="rgInc" type="range" min="15000" max="200000" step="1000" value="55000">
+          <input id="rgInc" type="range" min="15000" max="500000" step="1000" value="55000">
         </div>
         <div class="rg-meter" id="rgMeter">
           <div class="rg-bar"><i id="rgBar"></i></div>
           <div class="rg-mt"><b id="rgPct">0%</b><span id="rgVerdict">дохода уходит на платежи</span></div>
           <div class="rg-left" id="rgLeft"></div>
         </div>
-        <div class="rg-small">Расчёт примерный, по типичным ставкам. Это не оценка перспектив дела.</div>
+        <div class="rg-small">Расчёт примерный, по типичным ставкам. Это не оценка перспектив дела. Высокая нагрузка не значит, что вам подходит банкротство: возможны реструктуризация, договорённость с кредитором или внесудебное банкротство через МФЦ. Варианты разберём на консультации.</div>
         <div class="rg-actions"><button class="btn btn-brand" id="rgOrder" type="button">Разложить по полочкам</button></div>
       </div>
       <div class="rg-area" id="rgArea">
@@ -476,6 +472,14 @@ footer .warn-f{grid-column:1/-1;color:#fff;font-weight:600}
     <span class="warn-f">Банкротство влечет негативные последствия, в том числе ограничения на получение кредита и повторное банкротство в течение пяти лет. Предварительно обратитесь к своему кредитору и в МФЦ.</span>
   </div>
 </footer>
+
+<!-- обязательное предупреждение (ст. 28.1 ФЗ «О рекламе»), видно на любом экране -->
+<div class="warn">
+  <div class="wrap">
+    <svg viewBox="0 0 24 24"><path d="M12 3 2 20h20L12 3z"/><path d="M12 10v4"/><path d="M12 17.5v.01"/></svg>
+    <p>Банкротство влечет негативные последствия, в том числе ограничения на получение кредита и повторное банкротство в течение пяти лет. Предварительно обратитесь к своему кредитору и в МФЦ.</p>
+  </div>
+</div>
 
 <script>
 (() => {
@@ -564,7 +568,7 @@ footer .warn-f{grid-column:1/-1;color:#fff;font-weight:600}
         [...list.children].forEach((el, i) => setTimeout(() => el.classList.add('out'), i*70));
         setTimeout(() => { list.innerHTML = ''; }, 600);
         phone.classList.add('calm');
-        say.innerHTML = '<b>Все нити сходятся к юристу</b><span>Вместо десятков уведомлений один понятный статус дела.</span>';
+        say.innerHTML = '<b>Все нити сходятся к юристу</b><span>Юрист ведёт дело и держит вас в курсе каждого этапа.</span>';
         msgs.forEach((m, i) => {
           setTimeout(() => { if (mode) typing.classList.add('on'); }, 500 + i*1500);
           setTimeout(() => { if (mode){ typing.classList.remove('on'); m.classList.add('on'); } }, 1300 + i*1500);
@@ -626,13 +630,13 @@ footer .warn-f{grid-column:1/-1;color:#fff;font-weight:600}
   const Reg = (() => {
     // rate — примерная доля суммы долга, которая уходит в платёж за месяц
     const TYPES = [
-      {id:'potreb', name:'Потребкредит', min:50000, max:2000000, step:10000, sum:450000, rate:.035, on:true},
-      {id:'card', name:'Кредитная карта', min:10000, max:600000, step:5000, sum:140000, rate:.05, on:true},
-      {id:'mfo', name:'Микрозаймы', min:5000, max:300000, step:1000, sum:60000, rate:.24, on:true},
-      {id:'auto', name:'Автокредит', min:100000, max:3000000, step:10000, sum:650000, rate:.028},
-      {id:'coll', name:'Долг у коллекторов', min:10000, max:1500000, step:5000, sum:210000, rate:.1},
-      {id:'zhkh', name:'Долг за ЖКХ', min:5000, max:400000, step:1000, sum:42000, rate:.15},
-      {id:'tax', name:'Налоги и штрафы', min:2000, max:300000, step:1000, sum:28000, rate:.1}
+      {id:'potreb', name:'Потребкредит', min:50000, max:5000000, step:10000, sum:450000, rate:.035, on:true},
+      {id:'card', name:'Кредитная карта', min:10000, max:1500000, step:5000, sum:140000, rate:.05, on:true},
+      {id:'mfo', name:'Микрозаймы', min:5000, max:500000, step:1000, sum:60000, rate:.24, on:true},
+      {id:'auto', name:'Автокредит', min:100000, max:6000000, step:10000, sum:650000, rate:.028},
+      {id:'coll', name:'Долг у коллекторов', min:10000, max:3000000, step:5000, sum:210000, rate:.1},
+      {id:'zhkh', name:'Долг за ЖКХ', min:5000, max:700000, step:1000, sum:42000, rate:.15},
+      {id:'tax', name:'Налоги и штрафы', min:2000, max:1000000, step:1000, sum:28000, rate:.1}
     ];
     const list = $('#rgList'), world = $('#rgWorld'), area = $('#rgArea'), inc = $('#rgInc');
     const cards = new Map();
