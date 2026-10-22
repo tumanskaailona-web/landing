@@ -32,7 +32,7 @@
   --radius:18px;
   --f-head:'Unbounded',system-ui,sans-serif;
   --f-body:'Onest',system-ui,sans-serif;
-  --warn-h:max(9vh,64px);   /* полоса предупреждения: не меньше 7% экрана */
+  --warn-h:max(7.5vh,56px); /* полоса предупреждения: не меньше 7% экрана (ч. 2 ст. 28.1), с небольшим запасом */
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
@@ -113,7 +113,7 @@ h1 em{font-style:normal;background:linear-gradient(90deg,var(--brand-2),#9cc0ff)
 .warn{position:fixed;left:0;right:0;bottom:0;z-index:45;display:flex;align-items:center;height:var(--warn-h);padding-bottom:env(safe-area-inset-bottom,0px);background:rgba(5,14,34,.96);border-top:1px solid var(--line)}
 .warn .wrap{width:100%;display:flex;gap:14px;align-items:center}
 .warn svg{flex:none;width:22px;height:22px;stroke:var(--amber);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.warn p{font-size:14px;line-height:1.35;font-weight:600;color:#fff}
+.warn p{font-size:13.5px;line-height:1.3;font-weight:600;color:#fff}
 
 /* ---------- LIGHT SECTIONS ---------- */
 .light{background:var(--paper);color:var(--text-light)}
@@ -146,8 +146,6 @@ h2.title{font-family:var(--f-head);font-weight:700;font-size:clamp(28px,3.6vw,46
 .faq details[open] summary::after{transform:rotate(-135deg);margin-top:-3px}
 .faq details p{color:var(--muted-light);padding:0 0 24px;max-width:720px}
 
-.warn-box{display:flex;gap:14px;align-items:flex-start;background:#fff7e0;border:1px solid #f0dfae;color:#3b2f0b;border-radius:14px;padding:18px 20px;font-weight:600;font-size:15px;line-height:1.4}
-.warn-box svg{flex:none;width:22px;height:22px;stroke:#b07d00;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;margin-top:1px}
 
 /* ---------- ОТЗЫВЫ ---------- */
 .rv{display:grid;grid-template-columns:300px minmax(0,1fr);gap:20px;margin-top:46px;align-items:start}
@@ -165,6 +163,41 @@ h2.title{font-family:var(--f-head);font-weight:700;font-size:clamp(28px,3.6vw,46
 .rv-av{width:40px;height:40px;border-radius:50%;background:var(--paper-2);color:var(--brand);display:grid;place-items:center;font-weight:700;flex:none}
 .rv-who b{display:block;font-size:15px}
 .rv-who span{font-size:13px;color:var(--muted-light)}
+
+/* ---------- МЕССЕНДЖЕРЫ И ЗВОНОК ---------- */
+.msg > span{display:block;font-size:14px;color:var(--muted-dark);margin-bottom:10px}
+.msg-row{display:flex;flex-wrap:wrap;gap:8px}
+.msg-btn{display:inline-flex;align-items:center;gap:8px;padding:11px 16px;border-radius:999px;font-weight:600;font-size:14px;text-decoration:none;color:#fff;transition:transform .2s}
+.msg-btn:hover{transform:translateY(-2px)}
+.msg-btn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.msg-btn b{display:none}
+.tg{background:#2aabee}.wa{background:#25d366}.mx{background:linear-gradient(135deg,#3b82f6,#7c3aed)}.ph{background:rgba(255,255,255,.1);border:1px solid var(--line)}
+.nav-msg{display:flex;gap:6px}
+.nav-ic{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;color:#fff;text-decoration:none;transition:transform .2s}
+.nav-ic:hover{transform:translateY(-2px)}
+.nav-ic svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.nav-ic b{font:800 9px var(--f-head);letter-spacing:.02em}
+.fab{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(var(--warn-h) + 16px);z-index:44;display:flex;flex-direction:column-reverse;align-items:flex-end;gap:10px}
+.fab-main{width:58px;height:58px;border-radius:50%;border:0;background:var(--brand);color:#fff;display:grid;place-items:center;box-shadow:0 12px 30px -8px rgba(31,95,214,.9);transition:transform .25s}
+.fab-main svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.fab.open .fab-main{transform:rotate(45deg)}
+.fab-list{display:flex;flex-direction:column;align-items:flex-end;gap:8px;opacity:0;transform:translateY(10px);pointer-events:none;transition:opacity .25s,transform .25s}
+.fab.open .fab-list{opacity:1;transform:none;pointer-events:auto}
+.fab-list .msg-btn{box-shadow:0 10px 24px -10px rgba(0,0,0,.6)}
+.fab-list .ph{background:var(--brand-deep-2)}
+
+/* ---------- РЕФЕРАЛЬНАЯ ПРОГРАММА ---------- */
+.ref{background:var(--paper);color:var(--text-light);padding:90px 0}
+.ref-card{display:grid;grid-template-columns:1fr 1.1fr;gap:40px;align-items:center;background:#fff;border-radius:28px;padding:44px;box-shadow:0 30px 60px -40px rgba(10,26,58,.4)}
+.ref-sum{font:800 clamp(44px,6vw,80px)/1 var(--f-head);letter-spacing:-.03em;color:var(--brand)}
+.ref h2{font:700 clamp(24px,3vw,36px)/1.15 var(--f-head);letter-spacing:-.02em;margin-top:10px;text-wrap:balance}
+.ref ol{list-style:none;counter-reset:r;display:flex;flex-direction:column;gap:14px}
+.ref li{counter-increment:r;display:flex;gap:14px;align-items:flex-start;font-size:16px}
+.ref li::before{content:counter(r);flex:none;width:34px;height:34px;border-radius:50%;background:var(--paper-2);color:var(--brand);font:700 14px var(--f-head);display:grid;place-items:center}
+.ref li b{display:block}
+.ref li span{color:var(--muted-light);font-size:14.5px}
+.ref .btn{margin-top:22px}
+.ref-terms{font-size:12.5px;color:var(--muted-light);margin-top:18px;line-height:1.45}
 
 /* ---------- ВАШ РЕЕСТР (калькулятор перед формой) ---------- */
 .calc{background:linear-gradient(180deg,var(--brand-deep-2),var(--brand-deep));color:var(--text-dark);padding:110px 0 40px}
@@ -230,7 +263,7 @@ section.block.cta{padding-top:70px}
 .cta-grid{position:relative;display:grid;grid-template-columns:1.1fr 1fr;gap:60px;align-items:center}
 .cta h2.title{color:var(--text-dark)}
 .cta .sub{color:var(--muted-dark)}
-.cta .warn-box{margin-top:28px}
+.cta .msg{margin-top:28px}
 .form{background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:24px;padding:32px}
 .form label{display:block;font-size:13px;font-weight:600;color:var(--muted-dark);margin-bottom:8px}
 .form input[type=text],.form input[type=tel],.form select{width:100%;background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:12px;padding:15px 16px;font:500 16px var(--f-body);color:var(--text-dark);margin-bottom:18px;outline:none;transition:border-color .2s}
@@ -250,7 +283,6 @@ section.block.cta{padding-top:70px}
 
 footer{background:var(--brand-deep);color:var(--muted-dark);font-size:13px;padding:36px 0;border-top:1px solid var(--line)}
 footer .wrap{display:grid;grid-template-columns:1fr auto;gap:12px 30px}
-footer .warn-f{grid-column:1/-1;color:#fff;font-weight:600}
 
 .reveal{opacity:0;transform:translateY(30px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
 .reveal.in{opacity:1;transform:none}
@@ -269,9 +301,10 @@ footer .warn-f{grid-column:1/-1;color:#fff;font-weight:600}
   .hero-say{display:none}
   .ph-box{height:560px;min-height:0}
   .phone{transform:scale(.8)}
-  :root{--warn-h:max(11vh,84px)}
-  .warn p{font-size:12px}
-  .warn svg{width:18px;height:18px}
+  :root{--warn-h:max(8vh,68px)}
+  .warn .wrap{gap:10px}
+  .warn p{font-size:11.5px;line-height:1.28}
+  .warn svg{width:16px;height:16px}
   section.block{padding:72px 0}
   .timeline{grid-template-columns:1fr;gap:30px}
   .timeline::before{left:27px;right:auto;top:0;bottom:0;width:2px;height:auto;background:linear-gradient(180deg,var(--brand) var(--tl,0%),rgba(0,0,0,.1) var(--tl,0%))}
@@ -293,6 +326,10 @@ footer .warn-f{grid-column:1/-1;color:#fff;font-weight:600}
   .rg-area.order .rg-card .sum{font-size:13px}
   .rg-stamp{font-size:11px;right:4%;top:6%}
   .cta-grid{grid-template-columns:1fr;gap:36px}
+  .nav-msg{display:none}
+  .ref{padding:64px 0}
+  .ref-card{grid-template-columns:1fr;gap:26px;padding:26px}
+  .fab-main{width:52px;height:52px}
   .form{padding:22px}
   footer .wrap{grid-template-columns:1fr}
 }
@@ -314,6 +351,11 @@ footer .warn-f{grid-column:1/-1;color:#fff;font-weight:600}
       <i></i><span>СитиАрбитр</span>
     </a>
     <div class="nav-right">
+      <div class="nav-msg">
+        <a class="nav-ic tg" href="https://t.me/+79668721503" target="_blank" rel="noopener" aria-label="Telegram"><svg viewBox="0 0 24 24"><path d="M21.5 4.5 2.8 11.7c-.9.4-.9 1.6.1 1.9l4.6 1.5 1.8 5.5c.3.8 1.3 1 1.8.4l2.6-2.7 4.7 3.5c.7.5 1.6.1 1.8-.7l3.2-15c.2-1-.8-1.8-1.9-1.4Z"/><path d="m8 14.8 9.6-7.3"/></svg></a>
+        <a class="nav-ic wa" href="https://wa.me/79668721503" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M3.5 20.5 5 16a8.5 8.5 0 1 1 3 3l-4.5 1.5Z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1-1.5-2-1-1 .8a4 4 0 0 1-2-2l.8-1-1-2L9 9.5Z"/></svg></a>
+        <a class="nav-ic mx" href="https://max.ru/u/f9LHodD0cOIshJMKrmQDwXecn5XKi-75Hl3wLQP6Ho9bLJWUFiPNCWLtgd0" target="_blank" rel="noopener" aria-label="MAX"><b>MAX</b></a>
+      </div>
       <a class="nav-phone" href="tel:+74992130555">8 (499) 213-05-55</a>
       <a class="btn btn-brand" href="#form">Консультация</a>
     </div>
@@ -436,12 +478,12 @@ footer .warn-f{grid-column:1/-1;color:#fff;font-weight:600}
         </ul>
       </aside>
       <div class="rv-grid">
-        <figure class="rv-card reveal"><q>сразу честно оценили мои риски и не давали пустых обещаний</q><figcaption class="rv-who"><span class="rv-av">Е</span><div><b>Елена М.</b><span>Яндекс Карты</span></div></figcaption></figure>
-        <figure class="rv-card reveal"><q>практически все вопросы со сбором документов компания взяла на себя</q><figcaption class="rv-who"><span class="rv-av">М</span><div><b>Мария П.</b><span>Яндекс Карты</span></div></figcaption></figure>
-        <figure class="rv-card reveal"><q>Сергей идеально проконсультировал по моему финансовому вопросу.</q><figcaption class="rv-who"><span class="rv-av">Е</span><div><b>Евгения Т.</b><span>2ГИС</span></div></figcaption></figure>
-        <figure class="rv-card reveal"><q>На протяжении всего времени они оказывали моральную помощь</q><figcaption class="rv-who"><span class="rv-av">Г</span><div><b>Гаянэ</b><span>Яндекс Карты</span></div></figcaption></figure>
-        <figure class="rv-card reveal"><q>Юристы на первичной консультации были очень доброжелательны</q><figcaption class="rv-who"><span class="rv-av">А</span><div><b>Анастасия Ш.</b><span>2ГИС</span></div></figcaption></figure>
-        <figure class="rv-card reveal"><q>уже посоветовала вас своим знакомым</q><figcaption class="rv-who"><span class="rv-av">Р</span><div><b>Рената С.</b><span>Яндекс Карты</span></div></figcaption></figure>
+        <figure class="rv-card reveal"><q>сразу честно оценили мои риски и не давали пустых обещаний</q><figcaption class="rv-who"><span class="rv-av">Е</span><div><b>Елена М.</b><span>20 августа 2026 · Яндекс Карты</span></div></figcaption></figure>
+        <figure class="rv-card reveal"><q>практически все вопросы со сбором документов компания взяла на себя</q><figcaption class="rv-who"><span class="rv-av">М</span><div><b>Мария П.</b><span>10 октября 2026 · Яндекс Карты</span></div></figcaption></figure>
+        <figure class="rv-card reveal"><q>Сергей идеально проконсультировал по моему финансовому вопросу.</q><figcaption class="rv-who"><span class="rv-av">Е</span><div><b>Евгения Т.</b><span>сентябрь 2026 · 2ГИС</span></div></figcaption></figure>
+        <figure class="rv-card reveal"><q>На протяжении всего времени они оказывали моральную помощь</q><figcaption class="rv-who"><span class="rv-av">Г</span><div><b>Гаянэ</b><span>9 июля 2026 · Яндекс Карты</span></div></figcaption></figure>
+        <figure class="rv-card reveal"><q>Юристы на первичной консультации были очень доброжелательны</q><figcaption class="rv-who"><span class="rv-av">А</span><div><b>Анастасия Ш.</b><span>сентябрь 2026 · 2ГИС</span></div></figcaption></figure>
+        <figure class="rv-card reveal"><q>уже посоветовала вас своим знакомым</q><figcaption class="rv-who"><span class="rv-av">Р</span><div><b>Рената С.</b><span>20 июля 2026 · Яндекс Карты</span></div></figcaption></figure>
       </div>
     </div>
     <p class="note reveal">Фрагменты отзывов клиентов, опубликованных на Яндекс Картах и 2ГИС.</p>
@@ -489,9 +531,14 @@ footer .warn-f{grid-column:1/-1;color:#fff;font-weight:600}
       <div class="eyebrow reveal" style="color:var(--brand-2)">Бесплатная консультация</div>
       <h2 class="title reveal">Узнайте, подходит ли вам процедура банкротства</h2>
       <p class="sub reveal">Юрист перезвонит, задаст несколько вопросов, объяснит последствия и возможные варианты. Без обязательств.</p>
-      <div class="warn-box reveal">
-        <svg viewBox="0 0 24 24"><path d="M12 3 2 20h20L12 3z"/><path d="M12 10v4"/><path d="M12 17.5v.01"/></svg>
-        <span>Банкротство влечет негативные последствия, в том числе ограничения на получение кредита и повторное банкротство в течение пяти лет. Предварительно обратитесь к своему кредитору и в МФЦ.</span>
+      <div class="msg reveal">
+        <span>Или напишите нам сами:</span>
+        <div class="msg-row">
+          <a class="msg-btn tg" href="https://t.me/+79668721503" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M21.5 4.5 2.8 11.7c-.9.4-.9 1.6.1 1.9l4.6 1.5 1.8 5.5c.3.8 1.3 1 1.8.4l2.6-2.7 4.7 3.5c.7.5 1.6.1 1.8-.7l3.2-15c.2-1-.8-1.8-1.9-1.4Z"/><path d="m8 14.8 9.6-7.3"/></svg>Telegram</a>
+          <a class="msg-btn wa" href="https://wa.me/79668721503" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M3.5 20.5 5 16a8.5 8.5 0 1 1 3 3l-4.5 1.5Z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1-1.5-2-1-1 .8a4 4 0 0 1-2-2l.8-1-1-2L9 9.5Z"/></svg>WhatsApp</a>
+          <a class="msg-btn mx" href="https://max.ru/u/f9LHodD0cOIshJMKrmQDwXecn5XKi-75Hl3wLQP6Ho9bLJWUFiPNCWLtgd0" target="_blank" rel="noopener"><b>MAX</b>MAX</a>
+          <a class="msg-btn ph" href="tel:+74992130555"><svg viewBox="0 0 24 24"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2Z"/></svg>Позвонить</a>
+        </div>
       </div>
     </div>
     <form class="form reveal" id="leadForm" novalidate>
@@ -517,13 +564,46 @@ footer .warn-f{grid-column:1/-1;color:#fff;font-weight:600}
   </div>
 </section>
 
+<!-- ============ РЕФЕРАЛЬНАЯ ПРОГРАММА ============
+     Стимулирующее мероприятие: по ст. 9 ФЗ «О рекламе» указываем организатора, срок проведения и где узнать правила. -->
+<section class="ref" id="ref">
+  <div class="wrap">
+    <div class="ref-card reveal">
+      <div>
+        <div class="eyebrow">Реферальная программа</div>
+        <div class="ref-sum">10 000 ₽</div>
+        <h2>за каждого друга, которого вы к нам приведёте</h2>
+        <a class="btn btn-brand" href="https://t.me/+79668721503" target="_blank" rel="noopener">Узнать условия в Telegram</a>
+      </div>
+      <div>
+        <ol>
+          <li><div><b>Расскажите о нас другу</b><span>Дайте ему наш номер или ссылку на сайт.</span></div></li>
+          <li><div><b>Друг заключает договор</b><span>При обращении он называет ваше имя и телефон.</span></div></li>
+          <li><div><b>Вы получаете 10 000 ₽</b><span>Выплата после заключения договора и первой оплаты другом.</span></div></li>
+        </ol>
+        <p class="ref-terms">Организатор программы — ООО «СИТИАРБИТР». Срок проведения: до 31 декабря 2026 года. Правила, порядок и сроки выплаты вознаграждения уточняйте по телефону 8 (499) 213-05-55.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <footer>
   <div class="wrap">
     <span>© <span id="year"></span> Юридическая фирма «СитиАрбитр». ООО «СИТИАРБИТР», ИНН 7703475240, ОГРН 1197746295020</span>
     <span><a href="tel:+74992130555">8 (499) 213-05-55</a> · <a href="https://cityarbitr.ru/policy/" target="_blank" rel="noopener">Политика конфиденциальности</a></span>
-    <span class="warn-f">Банкротство влечет негативные последствия, в том числе ограничения на получение кредита и повторное банкротство в течение пяти лет. Предварительно обратитесь к своему кредитору и в МФЦ.</span>
   </div>
 </footer>
+
+<!-- быстрая связь -->
+<div class="fab" id="fab">
+  <button class="fab-main" id="fabBtn" type="button" aria-label="Связаться с нами" aria-expanded="false"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
+  <div class="fab-list">
+    <a class="msg-btn ph" href="tel:+74992130555"><svg viewBox="0 0 24 24"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2Z"/></svg>Позвонить</a>
+    <a class="msg-btn mx" href="https://max.ru/u/f9LHodD0cOIshJMKrmQDwXecn5XKi-75Hl3wLQP6Ho9bLJWUFiPNCWLtgd0" target="_blank" rel="noopener">MAX</a>
+    <a class="msg-btn wa" href="https://wa.me/79668721503" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M3.5 20.5 5 16a8.5 8.5 0 1 1 3 3l-4.5 1.5Z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1-1.5-2-1-1 .8a4 4 0 0 1-2-2l.8-1-1-2L9 9.5Z"/></svg>WhatsApp</a>
+    <a class="msg-btn tg" href="https://t.me/+79668721503" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M21.5 4.5 2.8 11.7c-.9.4-.9 1.6.1 1.9l4.6 1.5 1.8 5.5c.3.8 1.3 1 1.8.4l2.6-2.7 4.7 3.5c.7.5 1.6.1 1.8-.7l3.2-15c.2-1-.8-1.8-1.9-1.4Z"/><path d="m8 14.8 9.6-7.3"/></svg>Telegram</a>
+  </div>
+</div>
 
 <!-- обязательное предупреждение (ст. 28.1 ФЗ «О рекламе»), видно на любом экране -->
 <div class="warn">
@@ -861,6 +941,11 @@ footer .warn-f{grid-column:1/-1;color:#fff;font-weight:600}
     // здесь будет отправка в Битрикс24: fetch(WEBHOOK + "crm.lead.add.json", {method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({fields: buildLead()})})
     form.classList.add('sent');
   });
+
+  /* ---------- плавающая кнопка связи ---------- */
+  const fab = $('#fab'), fabBtn = $('#fabBtn');
+  fabBtn.addEventListener('click', () => { const o = fab.classList.toggle('open'); fabBtn.setAttribute('aria-expanded', o); });
+  document.addEventListener('click', e => { if (!fab.contains(e.target)){ fab.classList.remove('open'); fabBtn.setAttribute('aria-expanded', false); } });
 
   /* ---------- шапка, появление блоков, таймлайн ---------- */
   const lights = $$('.light');
